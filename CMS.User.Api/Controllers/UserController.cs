@@ -45,9 +45,9 @@ namespace CMS.User.Api.Controllers
         }
 
         [HttpPut("{userId}")]
-        public async Task<ActionResult> PutAsync(int userId, [FromBody] UserRequest userRequest)
+        public async Task<ActionResult> PutAsync(int userId, [FromBody] UpdateUserRequest userRequest)
         {
-            var coreUserRequest = _userCoreMapper.ToUserCore(userRequest);
+            var coreUserRequest = _userCoreMapper.ToUserCore(userRequest, userId);
             var result = await _userGateway.UpdateUserAsync(coreUserRequest);
 
             if (result.HasError)

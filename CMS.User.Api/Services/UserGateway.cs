@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CMS.User.Api.CoreModels;
-using CMS.User.Api.Database;
 using CMS.User.Api.Exceptions;
 using CMS.User.Api.Mappers;
 using CMS.User.Api.Repositories;
@@ -36,13 +34,20 @@ namespace CMS.User.Api.Services
 
         public async Task<UserResult> AddUserAsync(UserCore userRequest)
         {
-            var userToAdd = _dbUserMapper.ToUser(userRequest);
+            try
+            {
+                var userToAdd = _dbUserMapper.ToUser(userRequest);
 
-            var userAdded = await _userRepository.AddUserAsync(userToAdd);
+                var userAdded = await _userRepository.AddUserAsync(userToAdd);
 
-            await _userRepository.SaveAsync();
+                await _userRepository.SaveAsync();
 
-            return new UserResult(_userCoreMapper.ToUserCore(userAdded));
+                return new UserResult(_userCoreMapper.ToUserCore(userAdded));
+            }
+            catch (UserNameAlreadyExistException ex)
+            {
+                return new UserResult("UserNameAlreadyExist", ex.Message, ex);
+            }
         }
 
         public async Task<IEnumerable<UserCore>> GetUsersAsync()
@@ -63,6 +68,10 @@ namespace CMS.User.Api.Services
                 await _userRepository.SaveAsync();
 
                 return new UserResult(_userCoreMapper.ToUserCore(userToUpdate));
+            }
+            catch (UserNameAlreadyExistException ex)
+            {
+                return new UserResult("UserNameAlreadyExist", ex.Message, ex);
             }
             catch (DbUpdateConcurrencyException ex)
             {

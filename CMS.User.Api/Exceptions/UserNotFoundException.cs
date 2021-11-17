@@ -9,4 +9,12 @@ namespace CMS.User.Api.Exceptions
 
         }
     }
+
+    public class UserNameAlreadyExistException : ApplicationException
+    {
+        public UserNameAlreadyExistException(string message) : base(message)
+        {
+
+        }
+    }
 }

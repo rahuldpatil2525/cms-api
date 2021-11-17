@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.User.Api", "CMS.User.Api\CMS.User.Api.csproj", "{CD669C40-1007-4B40-8BCA-AA99F978C209}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{00DEC7C4-1601-4057-A6B0-FF7F9400E3D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.User.Api.FunctionalTests", "CMS.User.Api.FunctionalTests\CMS.User.Api.FunctionalTests.csproj", "{EB8E4A12-645C-4B38-8807-56309F922380}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{CD669C40-1007-4B40-8BCA-AA99F978C209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD669C40-1007-4B40-8BCA-AA99F978C209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD669C40-1007-4B40-8BCA-AA99F978C209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8E4A12-645C-4B38-8807-56309F922380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8E4A12-645C-4B38-8807-56309F922380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8E4A12-645C-4B38-8807-56309F922380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8E4A12-645C-4B38-8807-56309F922380}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB8E4A12-645C-4B38-8807-56309F922380} = {00DEC7C4-1601-4057-A6B0-FF7F9400E3D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {908E10A1-1C39-499F-B0A7-770A1B74FD6E}

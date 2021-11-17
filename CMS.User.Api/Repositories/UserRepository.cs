@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CMS.User.Api.Database;
 using CMS.User.Api.Exceptions;
@@ -33,6 +31,9 @@ namespace CMS.User.Api.Repositories
 
         public async Task<DbUser> AddUserAsync(DbUser user)
         {
+            if (await IsUserNameExist(user.UserName))
+                throw new UserNameAlreadyExistException($"UserName already exist, UserName:{user.UserName}");
+
             var result = await _context.Users.AddAsync(user);
 
             return result.Entity;
@@ -58,11 +59,20 @@ namespace CMS.User.Api.Repositories
             return _context.SaveChangesAsync();
         }
 
-        public Task UpdateUserAsync(DbUser user)
+        public async Task UpdateUserAsync(DbUser user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            if (await IsUserNameExist(user.UserName))
+                throw new UserNameAlreadyExistException($"UserName already exist, UserName:{user.UserName}");
 
-            return Task.CompletedTask;
+            _context.Entry(user).State = EntityState.Modified;
+        }
+
+        private async Task<bool> IsUserNameExist(string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+
+            return user is not null;
+
         }
     }
 }

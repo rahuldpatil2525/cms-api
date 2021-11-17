@@ -10,6 +10,8 @@ namespace CMS.User.Api.Mappers
     {
         UserCore ToUserCore(UserRequest userRequest);
 
+        UserCore ToUserCore(UpdateUserRequest userRequest, int userId);
+
         UserCore ToUserCore(DbUser user);
 
         IEnumerable<UserCore> ToUsersCore(IEnumerable<DbUser> users);
@@ -41,9 +43,21 @@ namespace CMS.User.Api.Mappers
             };
         }
 
+        public UserCore ToUserCore(UpdateUserRequest userRequest, int userId)
+        {
+            if (userRequest == null || userId <= 0)
+                return null;
+
+            return new UserCore()
+            {
+                UserId = userId,
+                UserName = userRequest.UserName
+            };
+        }
+
         public IEnumerable<UserCore> ToUsersCore(IEnumerable<DbUser> users)
         {
-            if(users==null || !users.Any())
+            if (users == null || !users.Any())
             {
                 return Enumerable.Empty<UserCore>();
             }
