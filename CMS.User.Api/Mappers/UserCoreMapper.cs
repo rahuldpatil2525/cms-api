@@ -8,7 +8,7 @@ namespace CMS.User.Api.Mappers
 {
     public interface IUserCoreMapper
     {
-        UserCore ToUserCore(UserRequest userRequest);
+        UserCore ToUserCore(UpdateUserRequest userRequest);
 
         UserCore ToUserCore(UpdateUserRequest userRequest, int userId);
 
@@ -19,14 +19,13 @@ namespace CMS.User.Api.Mappers
 
     public class UserCoreMapper : IUserCoreMapper
     {
-        public UserCore ToUserCore(UserRequest userRequest)
+        public UserCore ToUserCore(UpdateUserRequest userRequest)
         {
             if (userRequest == null)
                 return null;
 
             return new UserCore()
             {
-                UserId = userRequest.UserId,
                 UserName = userRequest.UserName
             };
         }

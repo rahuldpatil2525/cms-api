@@ -31,7 +31,7 @@ namespace CMS.User.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] UserRequest userRequest)
+        public async Task<ActionResult> PostAsync([FromBody] UpdateUserRequest userRequest)
         {
             var coreUserRequest = _userCoreMapper.ToUserCore(userRequest);
             var result = await _userGateway.AddUserAsync(coreUserRequest);

@@ -61,15 +61,15 @@ namespace CMS.User.Api.Repositories
 
         public async Task UpdateUserAsync(DbUser user)
         {
-            if (await IsUserNameExist(user.UserName))
+            if (await IsUserNameExist(user.UserName, user.UserId))
                 throw new UserNameAlreadyExistException($"UserName already exist, UserName:{user.UserName}");
 
             _context.Entry(user).State = EntityState.Modified;
         }
 
-        private async Task<bool> IsUserNameExist(string userName)
+        private async Task<bool> IsUserNameExist(string userName, int? userId = null)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName && (userId == null || x.UserId != userId));
 
             return user is not null;
 
